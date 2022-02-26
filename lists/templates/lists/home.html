@@ -1,0 +1,39 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block file_css %}
+    <link rel="stylesheet" href="{% static 'lists/styles/home.css' %}">
+{% endblock file_css %}
+    
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container" style="font-family: 'Open Sans';">
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                <h1 class="mb-2 display-3">Your things</h1>
+                <small class="text-muted">Feb. 25, 2022</small>
+            </div>            
+            <div class="col-md-4">
+                <div class="row top-right">
+                    <div class="col-md-6">
+                        <p class="display-5">3</p>                        
+                        <h3 class="">Personal</h3>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="display-5">3</p>                        
+                        <h3 class="">Business</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid middle my-2">
+    <div class="container">
+        <p class="text-uppercase fw-bold text-muted inbox">Inbox</p>
+    </div>
+</div>
+{% endblock content %}
+    

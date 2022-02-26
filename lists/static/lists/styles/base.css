@@ -1,0 +1,8 @@
+.top-right{
+    text-align: center;
+}
+@media only screen and (max-width: 768px){
+	.top-right{
+        text-align: left;
+    }
+}
