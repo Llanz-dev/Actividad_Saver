@@ -1,6 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static %}
-
+{% load tz %}
 {% block file_css %}
     <link rel="stylesheet" href="{% static 'lists/styles/home.css' %}">
 {% endblock file_css %}
@@ -8,20 +8,20 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="container" style="font-family: 'Open Sans';">
+    <div class="container">
         <div class="row">
-            <div class="col-md-8 mb-3">
+            <div class="col-md-8 mb-3 mt-3">
                 <h1 class="mb-2 display-3">Your things</h1>
                 <small class="text-muted">Feb. 25, 2022</small>
             </div>            
-            <div class="col-md-4">
+            <div class="col-md-4 mt-3">
                 <div class="row top-right">
                     <div class="col-md-6">
                         <p class="display-5">3</p>                        
                         <h3 class="">Personal</h3>
                     </div>
                     <div class="col-md-6">
-                        <p class="display-5">3</p>                        
+                        <p class="display-5 ">3</p>                        
                         <h3 class="">Business</h3>
                     </div>
                 </div>
@@ -30,9 +30,57 @@
     </div>
 </div>
 
-<div class="container-fluid middle my-2">
+<div class="container-fluid middle my-3">
     <div class="container">
+        
         <p class="text-uppercase fw-bold text-muted inbox">Inbox</p>
+        <div class="mydiv">
+            <hr class="line">
+            <a href=""><i class="bi bi-plus-circle-fill" style="font-size: 3rem;"></i></a>
+            <hr class="line">
+        </div>
+        <!-- <div class="row">
+            <div class="col-3 d-flex align-items-center">
+                <i class="bi bi-person-circle" style="font-size: 4rem;"></i>
+            </div>
+            <div class="col-6 my-auto">
+                <h3 class="fw-bold">Start the meeting</h3>
+                <p class="text-muted fw-bold">Molo, Iloilo</p>
+            </div>
+            <div class="col-3 mt-2">
+                <p class="text-muted fw-bold">9am</p>
+                <button class="btn btn-warning btn-sm">Update</button>
+                <button class="btn btn-danger btn-sm">Delete</button>
+            </div>
+            <hr>
+        </div> -->
+     
+        {% for task in tasks %}
+            <div class="row">                                    
+                <div class="col-3 d-flex align-items-center">
+                    {% if task.purpose == 'School' %}
+                        <img src="{% static 'lists/img/school.png' %}" alt="School icon" class="w-25">                    
+                    {% elif task.purpose == 'Business' %}
+                        <img src="{% static 'lists/img/stats.png' %}" alt="Business icon" class="w-25">                    
+                    {% elif task.purpose == 'Office' %}
+                        <img src="{% static 'lists/img/work.png' %}" alt="Office icon" class="w-25">                    
+                    {% else %}
+                        <img src="{% static 'lists/img/user.png' %}" alt="Personal icon" class="w-25">                    
+                    {% endif %}
+                </div>
+                <div class="col-6 my-auto">
+                    <h3 class="fw-bold">{{ task.title }}</h3>
+                    <p class="text-muted fw-bold">{{ task.place }}, Iloilo</p>
+                </div>
+                <div class="col-3">
+                        <p class="text-muted fw-bold">{{ task.date_created|timezone:'Asia/Manila'|date:'h:i a' }}</p>
+                        <button class="btn btn-warning btn-sm">Update</button>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                </div>
+                <hr>
+            </div>
+        {% endfor %}
+         
     </div>
 </div>
 {% endblock content %}

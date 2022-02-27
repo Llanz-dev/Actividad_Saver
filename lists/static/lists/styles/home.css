@@ -1,0 +1,11 @@
+.mydiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.line {
+    flex: 1;
+    border: none;
+    height: 2px;
+}
