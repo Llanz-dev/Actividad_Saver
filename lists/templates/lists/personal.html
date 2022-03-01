@@ -1,0 +1,27 @@
+{% extends 'partials/base.html' %}
+
+{% load static %}
+{% load tz %}
+
+{% block content %}
+    <div class="container">
+        {% for task in personal_items %}
+            <div class="row">                                    
+                <div class="col-3 d-flex align-items-center">
+                    <img src="{% static 'lists/img/user.png' %}" alt="Personal icon" class="w-25">                                       
+                </div>
+                <div class="col-6 my-auto">
+                    <h3 class="fw-bold">{{ task.title }}</h3>
+                    <p class="text-muted fw-bold">{{ task.place }}</p>
+                </div>
+                <div class="col-3">
+                        <p class="text-muted fw-bold">{{ task.date_created|timezone:'Asia/Manila'|date:'h:i a' }}</p>
+                        <a href="{% url 'update-task' task.slug %}" class="btn btn-warning btn-sm">Update</a>
+                        <a href="{% url 'delete-task' task.slug %}" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
+    

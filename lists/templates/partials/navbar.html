@@ -8,14 +8,20 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Personal</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Business</a>
-          </li>    
+            <a class="nav-link" aria-current="page" href="{% url 'info' %}">Info</a>
+          </li>          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Purpose
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'personal-info' %}">Personal</a></li>
+              <li><a class="dropdown-item" href="{% url 'fitness-info' %}">Fitness</a></li>
+              <li><a class="dropdown-item" href="{% url 'school-info' %}">School</a></li>
+              <li><a class="dropdown-item" href="{% url 'business-info' %}">Business</a></li>
+              <li><a class="dropdown-item" href="{% url 'office-info' %}">Office</a></li>             
+            </ul>
+          </li>  
         </ul>
       </div>
     </div>

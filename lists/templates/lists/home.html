@@ -16,50 +16,37 @@
             </div>            
             <div class="col-md-4 mt-3">
                 <div class="row top-right">
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <p class="display-5">3</p>                        
                         <h3 class="">Personal</h3>
                     </div>
                     <div class="col-md-6">
                         <p class="display-5 ">3</p>                        
                         <h3 class="">Business</h3>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container-fluid middle my-3">
+<div class="container-fluid my-3">
     <div class="container">
         
         <p class="text-uppercase fw-bold text-muted inbox">Inbox</p>
         <div class="mydiv">
             <hr class="line">
-            <a href=""><i class="bi bi-plus-circle-fill" style="font-size: 3rem;"></i></a>
+            <a href="{% url 'create-task' %}"><i class="bi bi-plus-circle-fill" style="font-size: 3rem;"></i></a>
             <hr class="line">
         </div>
-        <!-- <div class="row">
-            <div class="col-3 d-flex align-items-center">
-                <i class="bi bi-person-circle" style="font-size: 4rem;"></i>
-            </div>
-            <div class="col-6 my-auto">
-                <h3 class="fw-bold">Start the meeting</h3>
-                <p class="text-muted fw-bold">Molo, Iloilo</p>
-            </div>
-            <div class="col-3 mt-2">
-                <p class="text-muted fw-bold">9am</p>
-                <button class="btn btn-warning btn-sm">Update</button>
-                <button class="btn btn-danger btn-sm">Delete</button>
-            </div>
-            <hr>
-        </div> -->
      
         {% for task in tasks %}
             <div class="row">                                    
                 <div class="col-3 d-flex align-items-center">
                     {% if task.purpose == 'School' %}
                         <img src="{% static 'lists/img/school.png' %}" alt="School icon" class="w-25">                    
+                    {% elif task.purpose == 'Fitness' %}
+                        <img src="{% static 'lists/img/fitness.png' %}" alt="Fitness icon" class="w-25">                    
                     {% elif task.purpose == 'Business' %}
                         <img src="{% static 'lists/img/stats.png' %}" alt="Business icon" class="w-25">                    
                     {% elif task.purpose == 'Office' %}
@@ -70,12 +57,12 @@
                 </div>
                 <div class="col-6 my-auto">
                     <h3 class="fw-bold">{{ task.title }}</h3>
-                    <p class="text-muted fw-bold">{{ task.place }}, Iloilo</p>
+                    <p class="text-muted fw-bold">{{ task.place }}</p>
                 </div>
                 <div class="col-3">
                         <p class="text-muted fw-bold">{{ task.date_created|timezone:'Asia/Manila'|date:'h:i a' }}</p>
-                        <button class="btn btn-warning btn-sm">Update</button>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                        <a href="{% url 'update-task' task.slug %}" class="btn btn-warning btn-sm">Update</a>
+                        <a href="{% url 'delete-task' task.slug %}" class="btn btn-danger btn-sm">Delete</a>
                 </div>
                 <hr>
             </div>

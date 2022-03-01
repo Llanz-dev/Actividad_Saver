@@ -1,0 +1,16 @@
+{% extends 'partials/base.html' %}
+
+
+{% block content %}
+
+
+    <div class="container">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ todo_form.as_p }}
+            <a href="{% url 'home' %}" class="btn btn-secondary btn-sm">Back</a>
+            <input type="submit" value="Update" class="btn btn-warning btn-sm">
+        </form>
+    </div>
+{% endblock content %}
+    
