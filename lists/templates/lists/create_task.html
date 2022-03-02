@@ -1,11 +1,21 @@
 {% extends 'partials/base.html' %}
 
+{% load static %}
+
+{% block file_css %}
+    <link rel="stylesheet" href="{% static 'lists/styles/created_task.css' %}">    
+{% endblock file_css %}
+    
 
 {% block content %}
-    <div class="container">      
+    <div class="container">   
+        <h2 class="mb-3">Add new thing</h2>  
         <form action="" method="post">  
-            {% csrf_token %}
-            {{ todo_form.as_p }}          
+            {% csrf_token %} 
+            <p>Purpose: {{ todo_form.purpose }}</p>
+            <p>Title: {{ todo_form.title }}</p>
+            <p>Place: {{ todo_form.place }}</p>
+            <p>Note: {{ todo_form.note }}</p>
             <input type="submit" value="Submit" class="btn btn-info btn-sm text-white">
         </form>
     </div>

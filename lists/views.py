@@ -5,7 +5,10 @@ from lists.forms import TodoForm
 # Create your views here.
 def home(request):
     tasks = Tasks.objects.all()
-    context = {'tasks': tasks}
+    completed_count = Tasks.objects.all().filter(completed=True).count
+    completed = Tasks.objects.all().filter(completed=True).all().order_by('id')
+    
+    context = {'tasks': tasks, 'completed_count': completed_count, 'completed': completed}
     return render(request, 'lists/home.html', context)
 
 

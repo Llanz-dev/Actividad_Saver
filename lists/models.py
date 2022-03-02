@@ -21,9 +21,10 @@ class Tasks(models.Model):
           ('Villa Arevalo', 'Villa Arevalo'),
           ('Lapuz', 'Lapuz'),
      )
-     
+          
      purpose = models.CharField(max_length=8, choices=PURPOSE, default='Personal')
      title = models.CharField(max_length=50, unique=True)
+     completed = models.BooleanField(default=False)
      slug = models.SlugField(max_length=50, unique=True, blank=True)
      place = models.CharField(max_length=16, choices=PLACE, default='City Proper')
      note = models.TextField(max_length=100, blank=True)
