@@ -1,9 +1,12 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from lists.models import Tasks
 from lists.forms import TodoForm
 
 # Create your views here.
 def home(request):
+    print('Path:', request.path)
+    
     tasks = Tasks.objects.all()
     completed_count = Tasks.objects.all().filter(completed=True).count
     completed = Tasks.objects.all().filter(completed=True).all().order_by('id')
@@ -50,12 +53,14 @@ def info(request):
 def update_task(request, slug):
     task = Tasks.objects.get(slug=slug)
     todo_form = TodoForm(instance=task)
-
+    print('Path:', request.path)
+    
     if request.method == 'POST':
         todo_form = TodoForm(request.POST, instance=task)
         if todo_form.is_valid():
             todo_form.save()
-            return redirect('home')
+            next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
 
     context = {'todo_form': todo_form}
     return render(request, 'lists/update_task.html', context)
@@ -75,30 +80,50 @@ def delete_task(request, slug):
 
 def personal(request):
     personal_items = Tasks.objects.filter(purpose='Personal').all
-    context = {'personal_items': personal_items}
+    personal_count = Tasks.objects.filter(purpose='Personal').count
+    completed_count = Tasks.objects.all().filter(completed=True).count
+    completed = Tasks.objects.all().filter(completed=True).all().order_by('id')        
+    
+    context = {'personal_items': personal_items, 'personal_count': personal_count, 'completed': completed, 'completed_count': completed_count}
     return render(request, 'lists/personal.html', context)
 
 
 def fitness(request):
     fitness_items = Tasks.objects.filter(purpose='Fitness').all
-    context = {'fitness_items': fitness_items}
+    fitness_count = Tasks.objects.filter(purpose='Fitness').count
+    completed_count = Tasks.objects.all().filter(completed=True).count
+    completed = Tasks.objects.all().filter(completed=True).all().order_by('id')  
+    
+    context = {'fitness_items': fitness_items, 'fitness_count': fitness_count, 'completed_count': completed_count, 'completed': completed}
     return render(request, 'lists/fitness.html', context)
 
     
 def school(request):
     school_items = Tasks.objects.filter(purpose='School').all
-    context = {'school_items': school_items}
+    school_count = Tasks.objects.filter(purpose='School').count
+    completed_count = Tasks.objects.all().filter(completed=True).count
+    completed = Tasks.objects.all().filter(completed=True).all().order_by('id') 
+    
+    context = {'school_items': school_items, 'school_count': school_count, 'completed_count': completed_count, 'completed': completed}
     return render(request, 'lists/school.html', context)
 
     
 def business(request):
     business_items = Tasks.objects.filter(purpose='Business').all
-    context = {'business_items': business_items}
+    business_count = Tasks.objects.filter(purpose='Business').count
+    completed_count = Tasks.objects.all().filter(completed=True).count
+    completed = Tasks.objects.all().filter(completed=True).all().order_by('id')    
+    
+    context = {'business_items': business_items, 'business_count': business_count, 'completed_count': completed_count, 'completed': completed}
     return render(request, 'lists/business.html', context)
 
     
 def office(request):
     office_items = Tasks.objects.filter(purpose='Office').all
-    context = {'office_items': office_items}
+    office_count = Tasks.objects.filter(purpose='Office').count
+    completed_count = Tasks.objects.all().filter(completed=True).count
+    completed = Tasks.objects.all().filter(completed=True).all().order_by('id')       
+    
+    context = {'office_items': office_items, 'office_count': office_count, 'completed_count': completed_count, 'completed': completed}
     return render(request, 'lists/office.html', context)
 
