@@ -74,34 +74,34 @@
             
         
         {% if completed_count > 0 %}
-        <h3 class="mt-5 mb-3">Completed <span class="px-3 py-1 rounded-circle bg-dark text-white">{{ completed_count }}</span></h3>
-        {% for task in completed %}
-            <div class="row">                                    
-                <div class="col-3 d-flex align-items-center">
-                    {% if task.purpose == 'School' %}
-                        <img src="{% static 'lists/img/school.png' %}" alt="School icon" class="w-25">                    
-                    {% elif task.purpose == 'Fitness' %}
-                        <img src="{% static 'lists/img/fitness.png' %}" alt="Fitness icon" class="w-25">                    
-                    {% elif task.purpose == 'Business' %}
-                        <img src="{% static 'lists/img/stats.png' %}" alt="Business icon" class="w-25">                    
-                    {% elif task.purpose == 'Office' %}
-                        <img src="{% static 'lists/img/work.png' %}" alt="Office icon" class="w-25">                    
-                    {% else %}
-                        <img src="{% static 'lists/img/user.png' %}" alt="Personal icon" class="w-25">                    
-                    {% endif %}
+            <h3 class="mt-5 mb-3">Completed <span class="px-3 py-1 rounded-circle bg-dark text-white">{{ completed_count }}</span></h3>
+            {% for task in completed %}
+                <div class="row">                                    
+                    <div class="col-3 d-flex align-items-center">
+                        {% if task.purpose == 'School' %}
+                            <img src="{% static 'lists/img/school.png' %}" alt="School icon" class="w-25">                    
+                        {% elif task.purpose == 'Fitness' %}
+                            <img src="{% static 'lists/img/fitness.png' %}" alt="Fitness icon" class="w-25">                    
+                        {% elif task.purpose == 'Business' %}
+                            <img src="{% static 'lists/img/stats.png' %}" alt="Business icon" class="w-25">                    
+                        {% elif task.purpose == 'Office' %}
+                            <img src="{% static 'lists/img/work.png' %}" alt="Office icon" class="w-25">                    
+                        {% else %}
+                            <img src="{% static 'lists/img/user.png' %}" alt="Personal icon" class="w-25">                    
+                        {% endif %}
+                    </div>
+                    <div class="col-6 my-auto">
+                        <h3 class="fw-bold">{{ task.title }}</h3>
+                        <p class="text-muted fw-bold">{{ task.place }}</p>
+                    </div>
+                    <div class="col-3">
+                            <p class="text-muted fw-bold">{{ task.date_created|timezone:'Asia/Manila'|date:'h:i a' }}</p>
+                            <a href="{% url 'update-task' task.slug %}" class="btn btn-warning btn-sm">Update</a>
+                            <a href="{% url 'delete-task' task.slug %}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                    <hr class="mt-3">
                 </div>
-                <div class="col-6 my-auto">
-                    <h3 class="fw-bold">{{ task.title }}</h3>
-                    <p class="text-muted fw-bold">{{ task.place }}</p>
-                </div>
-                <div class="col-3">
-                        <p class="text-muted fw-bold">{{ task.date_created|timezone:'Asia/Manila'|date:'h:i a' }}</p>
-                        <a href="{% url 'update-task' task.slug %}" class="btn btn-warning btn-sm">Update</a>
-                        <a href="{% url 'delete-task' task.slug %}" class="btn btn-danger btn-sm">Delete</a>
-                </div>
-                <hr class="mt-3">
-            </div>
-            {% endfor %}
+                {% endfor %}
         {% endif %}
     </div>
 </div>

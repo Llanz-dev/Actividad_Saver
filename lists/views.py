@@ -32,6 +32,8 @@ def info(request):
     school_count = Tasks.objects.filter(purpose='School').count
     business_count = Tasks.objects.filter(purpose='Business').count
     office_count = Tasks.objects.filter(purpose='Office').count
+    completed_count = Tasks.objects.filter(completed=True).count
+    
     context = {
         'all_count': all_count,
         'personal_count': personal_count,
@@ -39,7 +41,9 @@ def info(request):
         'school_count': school_count,
         'business_count': business_count,
         'office_count': office_count,
+        'completed_count': completed_count
         }
+    
     return render(request, 'lists/info.html', context)
 
 
