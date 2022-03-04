@@ -28,10 +28,10 @@ class Tasks(models.Model):
      slug = models.SlugField(max_length=50, unique=True, blank=True)
      place = models.CharField(max_length=16, choices=PLACE, default='City Proper')
      note = models.TextField(max_length=100, blank=True)
-     date_created = models.DateTimeField(auto_now_add=True)
+     # date_created = models.DateTimeField(auto_now_add=True)
 
-     class Meta:
-          ordering = ['-date_created']
+     # class Meta:
+     #      ordering = ['-date_created']
 
      def save(self, *args, **kwargs):
          self.slug = slugify(self.title)

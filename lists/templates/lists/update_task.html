@@ -4,10 +4,11 @@
 {% block content %}
     <div class="container">
         <h2 class="mb-3">Update Item</h2>
-        <form action="" method="POST">
+        <form method="POST">
             {% csrf_token %}
             {{ todo_form.as_p }}
             <a href="{% url 'home' %}" class="btn btn-secondary btn-sm">Back</a>
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
             <input type="submit" value="Update" class="btn btn-warning btn-sm">
         </form>
     </div>
