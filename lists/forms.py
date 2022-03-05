@@ -15,6 +15,6 @@ class TodoForm(forms.ModelForm):
     
     class Meta:
         model = Tasks
-        exclude = ('slug',)
+        exclude = ('slug', 'date_created',)
         fields = '__all__'
         

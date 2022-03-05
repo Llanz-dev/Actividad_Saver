@@ -1,5 +1,5 @@
 from asyncio import Task
-from django.http import HttpResponseRedirect
+from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from lists.models import Tasks
 from lists.forms import TodoForm
@@ -8,7 +8,7 @@ from lists.forms import TodoForm
 def home(request):
     print('Path:', request.path)
     
-    tasks = Tasks.objects.all()
+    tasks = Tasks.objects.all().order_by('-id')
     completed_count = Tasks.objects.all().filter(completed=True).count
     completed = Tasks.objects.all().filter(completed=True).all().order_by('id')
     
@@ -54,7 +54,7 @@ def info(request):
 def update_task(request, slug):
     task = Tasks.objects.get(slug=slug)
     todo_form = TodoForm(instance=task)
-    print('Path:', request.path)
+    task_created = task.date_created
     
     if request.method == 'POST':
         todo_form = TodoForm(request.POST, instance=task)
@@ -63,8 +63,12 @@ def update_task(request, slug):
             next = request.POST.get('next', '/')
             return HttpResponseRedirect(next)
 
-    context = {'todo_form': todo_form}
+    context = {'todo_form': todo_form, 'task_created': task_created}
     return render(request, 'lists/update_task.html', context)
+
+
+def back_button(request):
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def delete_task(request, slug):
@@ -73,7 +77,8 @@ def delete_task(request, slug):
 
     if request.method == 'POST':
         task.delete()
-        return redirect('home')
+        next = request.POST.get('next', '/')        
+        return HttpResponseRedirect(next)
 
     context = {'todo_form': todo_form}
     return render(request, 'lists/delete_task.html', context)
