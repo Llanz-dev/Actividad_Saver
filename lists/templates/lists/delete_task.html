@@ -3,11 +3,12 @@
 
 {% block content %}
 <div class="container">      
-    <form action="" method="post">  
+    <form method="post">  
         {% csrf_token %}
         <h1>Are you sure?</h1>
         <h3>"{{ todo_form.title.value }}" will be permanently deleted.</h3>
-        <a href="{% url 'home' %}" class="btn btn-secondary btn-sm">Back</a>
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+        <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary btn-sm">Back</a>
         <input type="submit" value="Delete" class="btn btn-danger btn-sm">
     </form>
 </div>

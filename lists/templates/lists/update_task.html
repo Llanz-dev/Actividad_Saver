@@ -1,4 +1,5 @@
 {% extends 'partials/base.html' %}
+{% load tz %}
 
 
 {% block content %}
@@ -7,8 +8,10 @@
         <form method="POST">
             {% csrf_token %}
             {{ todo_form.as_p }}
-            <a href="{% url 'home' %}" class="btn btn-secondary btn-sm">Back</a>
+            <p>Date: {{ task_created|date:'F j, Y' }}</p>
+            <!-- <a href="{% url 'home' %}" name="next" value="{{ request.GET.next }}" class="btn btn-secondary btn-sm">Back</a> -->
             <input type="hidden" name="next" value="{{ request.GET.next }}">
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary btn-sm">Back</a>
             <input type="submit" value="Update" class="btn btn-warning btn-sm">
         </form>
     </div>
