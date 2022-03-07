@@ -1,0 +1,55 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load tz %}
+{% block file_css %}
+    <link rel="stylesheet" href="{% static 'lists/styles/home.css' %}">
+{% endblock file_css %}
+    
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mb-3 mt-3">
+                <h1 class="mb-2 display-3">Your things</h1>
+                <small class="text-muted">{% now "F j, o" %}</small>
+            </div>            
+            <div class="col-md-4 mt-3 d-flex align-items-center">
+                <div class="row top-right">
+                    <form action="{% url 'search-item' %}" method="POST" class="d-flex">
+                        {% csrf_token %}
+                            <input type="search" name="searched" placeholder="Search a thing..." class="p-1">                                                       
+                            <input type="submit" value="Search" class="btn btn-outline-success ">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid my-3">
+    <div class="container">
+        <div class="row">
+            <p class="text-uppercase fw-bold text-muted inbox">Inbox</p>            
+        </div>
+        <div class="mydiv">
+            <hr class="line">
+            <a href="{% url 'create-task' %}"><i class="bi bi-plus-circle-fill" style="font-size: 3rem;"></i></a>
+            <hr class="line">
+        </div>
+     
+        
+        {% block items %}
+            
+        {% endblock items %}
+            
+    </div>
+</div>
+{% endblock content %}
+    
+
+
+{% block file_script %}
+    <!-- <script src="{% static 'lists/scripts/home.js' %}"></script>  -->
+{% endblock file_script %}            
+        

@@ -1,0 +1,15 @@
+{% extends 'partials/structure.html' %}
+
+
+{% block items %}
+
+{% if searched %}
+    <h1 class="mb-4">You searched for "{{ searched }}"</h1>  
+    {% for task in tasks %} 
+        {% include 'partials/row_item.html' %}       
+    {% endfor %}  
+{% else %}
+    <h1>Nothing</h1>
+{% endif %}
+{% endblock items %}
+    
