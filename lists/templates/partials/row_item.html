@@ -17,11 +17,11 @@
         {% endif %}
     </div>
     <div class="col-6 my-auto">
-        <h3 class="fw-bold">{{ task.title }}</h3>
+        <h3 class="fw-bold">{{ task.title|truncatechars:30 }}</h3>
         <p class="text-muted fw-bold">{{ task.place }}</p>
     </div>
     <div class="col-3">
-            <p class="text-muted fw-bold">{{ task.date_created|date:'H:i a' }}</p>
+            <p class="text-muted fw-bold">{{ task.date_created|date:'g:i a' }}</p>
             <a href="{% url 'update-task' task.slug %}?next={{ request.path|urlencode }}" class="btn btn-warning btn-sm">Update</a>
             <a href="{% url 'delete-task' task.slug %}?next={{ request.path|urlencode }}" class="btn btn-danger btn-sm">Delete</a>
     </div>

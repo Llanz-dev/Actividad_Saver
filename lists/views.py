@@ -1,19 +1,26 @@
-from asyncio import Task
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from lists.models import Tasks
 from lists.forms import TodoForm
 
 # Create your views here.
-def home(request):
-    print('Path:', request.path)
-    
+def home(request):        
     tasks = Tasks.objects.all().order_by('-id')
     completed_count = Tasks.objects.all().filter(completed=True).count
     completed = Tasks.objects.all().filter(completed=True).all().order_by('id')
     
     context = {'tasks': tasks, 'completed_count': completed_count, 'completed': completed}
     return render(request, 'lists/home.html', context)
+
+
+def search_item(request):
+    if request.method == 'POST':
+        searched = request.POST.get('searched')        
+        tasks = Tasks.objects.filter(title__contains=searched)
+
+    context = {'searched': searched, 'tasks': tasks}
+
+    return render(request, 'lists/search_item.html', context)
 
 
 def create_task(request):

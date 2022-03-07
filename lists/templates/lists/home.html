@@ -1,65 +1,18 @@
-{% extends 'partials/base.html' %}
-{% load static %}
-{% load tz %}
-{% block file_css %}
-    <link rel="stylesheet" href="{% static 'lists/styles/home.css' %}">
-{% endblock file_css %}
-    
+{% extends 'partials/structure.html' %}
 
-{% block content %}
-<div class="container-fluid">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 mb-3 mt-3">
-                <h1 class="mb-2 display-3">Your things</h1>
-                <small class="text-muted">{% now "F j, o" %}</small>
-            </div>            
-            <div class="col-md-4 mt-3">
-                <div class="row top-right">
-                    <!-- <div class="col-md-6">
-                        <p class="display-5">3</p>                        
-                        <h3 class="">Personal</h3>
-                    </div>
-                    <div class="col-md-6">
-                        <p class="display-5 ">3</p>                        
-                        <h3 class="">Business</h3>
-                    </div> -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="container-fluid my-3">
-    <div class="container">
-        <div class="row">
-            <p class="text-uppercase fw-bold text-muted inbox">Inbox</p>            
-        </div>
-        <div class="mydiv">
-            <hr class="line">
-            <a href="{% url 'create-task' %}"><i class="bi bi-plus-circle-fill" style="font-size: 3rem;"></i></a>
-            <hr class="line">
-        </div>
-     
-        {% for task in tasks %}        
-            {% if task.completed == False %}
-                {% include 'partials/row_item.html' %}
-            {% endif %}
+{% block items %}
+    {% for task in tasks %}        
+    {% if task.completed == False %}
+        {% include 'partials/row_item.html' %}
+    {% endif %}
+    {% endfor %}
+            
+    {% if completed_count > 0 %}
+    <h3 class="mt-5 mb-3">Completed <span class="px-3 py-1 rounded-circle bg-dark text-white">{{ completed_count }}</span></h3>
+    {% for task in completed %}
+        {% include 'partials/row_item.html' %}
         {% endfor %}
-                    
-        {% if completed_count > 0 %}
-            <h3 class="mt-5 mb-3">Completed <span class="px-3 py-1 rounded-circle bg-dark text-white">{{ completed_count }}</span></h3>
-            {% for task in completed %}
-                {% include 'partials/row_item.html' %}
-                {% endfor %}
-        {% endif %}
-    </div>
-</div>
-{% endblock content %}
+    {% endif %}
+{% endblock items %}
     
-
-
-{% block file_script %}
-    <!-- <script src="{% static 'lists/scripts/home.js' %}"></script>  -->
-{% endblock file_script %}            
-        
