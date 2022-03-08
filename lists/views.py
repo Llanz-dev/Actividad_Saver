@@ -1,4 +1,4 @@
-from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from lists.models import Tasks
 from lists.forms import TodoForm
@@ -14,13 +14,19 @@ def home(request):
 
 
 def search_item(request):
-    if request.method == 'POST':
+    completed_count = Tasks.objects.all().filter(completed=True).count
+    completed = Tasks.objects.all().filter(completed=True).all().order_by('id')
+    tasks = Tasks.objects.all().order_by('-id')            
+    
+    if request.method == 'POST':        
         searched = request.POST.get('searched')        
-        tasks = Tasks.objects.filter(title__contains=searched)
-
-    context = {'searched': searched, 'tasks': tasks}
-
-    return render(request, 'lists/search_item.html', context)
+        tasks_search = Tasks.objects.filter(title__contains=searched).order_by('-id')        
+        context = {'searched': searched, 'tasks': tasks, 'completed_count': completed_count, 'completed': completed, 'tasks_search': tasks_search}
+        return render(request, 'lists/search_item.html', context)
+    else:
+        context = {'tasks': tasks, 'completed': completed, 'completed_count': completed_count}
+        return render(request, 'lists/search_item.html', context)
+    
 
 
 def create_task(request):
