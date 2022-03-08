@@ -2,25 +2,9 @@
 
 
 {% block items %}
-
-{% if searched %}
     <h1 class="mb-4">You searched for "{{ searched }}"</h1>  
     {% for task in tasks_search %} 
         {% include 'partials/row_item.html' %}       
     {% endfor %}  
-{% else %}
-    {% for task in tasks %}        
-        {% if task.completed == False %}
-            {% include 'partials/row_item.html' %}
-        {% endif %}
-    {% endfor %}
-            
-    {% if completed_count > 0 %}
-        <h3 class="mt-5 mb-3">Completed <span class="px-3 py-1 rounded-circle bg-dark text-white">{{ completed_count }}</span></h3>
-        {% for task in completed %}
-            {% include 'partials/row_item.html' %}
-            {% endfor %}
-        {% endif %}
-    {% endif %}
 {% endblock items %}
     

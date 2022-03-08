@@ -16,7 +16,7 @@
             </div>            
             <div class="col-md-4 mt-3 d-flex align-items-center">
                 <div class="row top-right">
-                    <form action="{% url 'search-item' %}" method="POST" class="d-flex">
+                    <form class="d-flex">
                             {% csrf_token %}
                             <input type="search" name="searched" placeholder="Search a thing..." class="p-1">                                                       
                             <input type="hidden" name="next" value="{{ request.GET.next }}">
