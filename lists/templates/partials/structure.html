@@ -16,11 +16,10 @@
             </div>            
             <div class="col-md-4 mt-3 d-flex align-items-center">
                 <div class="row top-right">
-                    <form class="d-flex">
-                            {% csrf_token %}
-                            <input type="search" name="searched" placeholder="Search a thing..." class="p-1">                                                       
+                    <form action="{% url 'search-item' %}" class="d-flex">
+                            <input type="search" name="searched" placeholder="Search a thing..." class="p-1" required>                                                       
                             <input type="hidden" name="next" value="{{ request.GET.next }}">
-                            <input type="submit" value="Search" class="btn btn-outline-success ">
+                            <input type="submit" value="Search" class="btn btn-outline-success">
                     </form>
                 </div>
             </div>
@@ -33,7 +32,7 @@
         <div class="row">
             <p class="text-uppercase fw-bold text-muted inbox">Inbox</p>            
         </div>
-        <div class="mydiv">
+        <div class="mydiv mb-4">
             <hr class="line">
             <a href="{% url 'create-task' %}"><i class="bi bi-plus-circle-fill" style="font-size: 3rem;"></i></a>
             <hr class="line">
@@ -51,6 +50,6 @@
 
 
 {% block file_script %}
-    <!-- <script src="{% static 'lists/scripts/home.js' %}"></script>  -->
+    <script src="{% static 'lists/scripts/structure.js' %}"></script> 
 {% endblock file_script %}            
         
