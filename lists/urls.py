@@ -14,5 +14,5 @@ urlpatterns = [
     path('office_info', views.office, name='office-info'),    
     path('update_task/<slug:slug>', views.update_task, name='update-task'),
     path('delete_task/<slug:slug>', views.delete_task, name='delete-task'),
-    # path('search_item', views.search_item, name='search-item'),
+    path('search_item', views.search_item, name='search-item'),
 ]

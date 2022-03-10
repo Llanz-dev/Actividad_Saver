@@ -1,24 +1,44 @@
+import re
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from lists.models import Tasks
 from lists.forms import TodoForm
 
 # Create your views here.
+
+
 def home(request):        
     tasks = Tasks.objects.all().order_by('-id')
     completed_count = Tasks.objects.all().filter(completed=True).count
     completed = Tasks.objects.all().filter(completed=True).all().order_by('id')
-
-    if 'searched' in request.GET:        
-        searched = request.GET['searched']
-        tasks = Tasks.objects.filter(title__contains=searched).order_by('-id')
-        completed_count = Tasks.objects.filter(title__contains=searched).filter(completed=True).count
-        completed = Tasks.objects.filter(title__contains=searched).filter(completed=True).all().order_by('id')                
     
     context = {'tasks': tasks, 'completed_count': completed_count, 'completed': completed}
     return render(request, 'lists/home.html', context)
-    
 
+
+def search_item(request):
+    completed_count = Tasks.objects.all().filter(completed=True).count
+    completed = Tasks.objects.all().filter(completed=True).all().order_by('id')    
+    searched = request.GET
+    search_count = Tasks.objects.filter(title__contains=searched).count 
+    tasks = Tasks.objects.all().order_by('-id') 
+    has_searched = False
+
+    if 'searched' in request.GET:   
+        has_searched = True    
+        searched = request.GET['searched']
+        tasks = Tasks.objects.filter(title__contains=searched).order_by('-id')
+        search_count = Tasks.objects.filter(title__contains=searched).count        
+        completed_count = Tasks.objects.filter(title__contains=searched).filter(completed=True).count
+        completed = Tasks.objects.filter(title__contains=searched).filter(completed=True).all().order_by('id')                        
+    else:
+        return redirect('home')
+
+    
+    context = {'tasks': tasks, 'completed_count': completed_count, 'completed': completed, 'searched': searched, 'search_count': search_count, 'has_search': has_searched}
+    return render(request, 'lists/search_item.html', context)                                  
+    
+    
 def create_task(request):
     todo_form = TodoForm()
 
@@ -59,12 +79,14 @@ def update_task(request, slug):
     todo_form = TodoForm(instance=task)
     task_created = task.date_created
     
+    
     if request.method == 'POST':
         todo_form = TodoForm(request.POST, instance=task)
         if todo_form.is_valid():
             todo_form.save()
             next = request.POST.get('next', '/')
             return HttpResponseRedirect(next)
+    
 
     context = {'todo_form': todo_form, 'task_created': task_created}
     return render(request, 'lists/update_task.html', context)
