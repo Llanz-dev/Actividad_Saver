@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'lists/bootstrap/css/bootstrap.css' %}">
+    <title>Todo {{ error_name }}</title>
+</head>
+<body>
+    
+    <div class="container text-center mt-5">
+        {% if error_name == 404 %}
+            <h1>Error {{ error_name }}!</h1>
+        {% elif error_name == 500 %}
+            <h1>Error {{ error_name }}!</h1>
+        {% elif error_name == 403 %}
+            <h1>Error {{ error_name }}!</h1>
+            <h4>Sorry, {{ undefined_link }} page was not found</h4>
+        {% elif error_name == 400 %}
+            <h1>Error {{ error_name }}!</h1>
+        {% else %}
+            <h1>Something went wrong :(</h1>            
+        {% endif %}        
+        <h4>Sorry, "<span class="text-danger">{{ undefined_link }}</span>" page was not found</h4>            
+        <a href="{% url 'home' %}" class="btn btn-secondary btn-sm mt-3">Home</a>
+    </div>
+</body>
+</html>

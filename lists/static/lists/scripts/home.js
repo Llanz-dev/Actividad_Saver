@@ -5,3 +5,4 @@ var yyyy = today.getFullYear();
 
 today = mm + '/' + dd + '/' + yyyy;
 document.getElementById('current-date').textContent = today
+alert(232)
