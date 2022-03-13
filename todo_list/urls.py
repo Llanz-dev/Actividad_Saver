@@ -15,8 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('lists.urls'))
 ]
+
+handler404 = 'lists.views.page_not_found'
+handler500 = 'lists.views.error'
+handler403 = 'lists.views.permission_denied'
+handler400 = 'lists.views.bad_request'

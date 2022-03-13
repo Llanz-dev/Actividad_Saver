@@ -18,7 +18,17 @@
             {% endfor %}
         {% endif %}
     {% else %}
-        <h1>There's no items that contains "{{ searched }}"</h1>      
+        <h3>Not many great matches came back for your search "<span class="fw-bold">{{ searched }}</span>"</h3>    
+        <ul>
+            <h3><li>Try more general keywords</li></h3>
+            
+            {% if searched|length > 20 %}
+                <h3><li>Try fewer keywords</li></h3>  
+            {% elif searched|length < 5 %}                                          
+                <h3><li>Try more keywords</li></h3>              
+            {% endif %}                
+                
+        </ul>
     {% endif %}
 
 {% endblock items %}

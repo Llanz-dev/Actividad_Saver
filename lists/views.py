@@ -1,20 +1,18 @@
-import re
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from lists.models import Tasks
 from lists.forms import TodoForm
-
+from django.template import *
 # Create your views here.
 
 
-def home(request):        
+def home(request):
     tasks = Tasks.objects.all().order_by('-id')
     completed_count = Tasks.objects.all().filter(completed=True).count
     completed = Tasks.objects.all().filter(completed=True).all().order_by('id')
-    
     context = {'tasks': tasks, 'completed_count': completed_count, 'completed': completed}
     return render(request, 'lists/home.html', context)
-
+    
 
 def search_item(request):
     completed_count = Tasks.objects.all().filter(completed=True).count
@@ -23,7 +21,8 @@ def search_item(request):
     search_count = Tasks.objects.filter(title__contains=searched).count 
     tasks = Tasks.objects.all().order_by('-id') 
     has_searched = False
-
+    n = 20
+        
     if 'searched' in request.GET:   
         has_searched = True    
         searched = request.GET['searched']
@@ -34,8 +33,7 @@ def search_item(request):
     else:
         return redirect('home')
 
-    
-    context = {'tasks': tasks, 'completed_count': completed_count, 'completed': completed, 'searched': searched, 'search_count': search_count, 'has_search': has_searched}
+    context = {'tasks': tasks, 'completed_count': completed_count, 'completed': completed, 'searched': searched, 'search_count': search_count, 'has_search': has_searched, 'n': n}
     return render(request, 'lists/search_item.html', context)                                  
     
     
@@ -79,18 +77,16 @@ def update_task(request, slug):
     todo_form = TodoForm(instance=task)
     task_created = task.date_created
     
-    
     if request.method == 'POST':
         todo_form = TodoForm(request.POST, instance=task)
         if todo_form.is_valid():
             todo_form.save()
             next = request.POST.get('next', '/')
             return HttpResponseRedirect(next)
-    
-
+        
     context = {'todo_form': todo_form, 'task_created': task_created}
     return render(request, 'lists/update_task.html', context)
-
+        
 
 def back_button(request):
     return redirect(request.META.get('HTTP_REFERER'))
@@ -99,12 +95,10 @@ def back_button(request):
 def delete_task(request, slug):
     task = Tasks.objects.get(slug=slug)
     todo_form = TodoForm(instance=task)
-
     if request.method == 'POST':
         task.delete()
         next = request.POST.get('next', '/')        
         return HttpResponseRedirect(next)
-
     context = {'todo_form': todo_form}
     return render(request, 'lists/delete_task.html', context)
 
@@ -158,3 +152,23 @@ def office(request):
     context = {'office_items': office_items, 'office_count': office_count, 'completed_count': completed_count, 'completed': completed}
     return render(request, 'lists/office.html', context)
 
+    
+def page_not_found(request, exception):     
+    
+    context = {'undefined_link': request.build_absolute_uri(), 'error_name': 404}
+    return render(request, 'lists/error_page.html', context)
+
+def error(request):
+    
+    context = {'undefined_link': request.build_absolute_uri(), 'error_name': 500}
+    return render(request, 'lists/error_page.html', context)
+
+def permission_denied(request, exception):
+
+    context = {'undefined_link': request.build_absolute_uri(), 'error_name': 403}
+    return render(request, 'lists/error_page.html', context)
+
+def bad_request(request, exception):
+    
+    context = {'undefined_link': request.build_absolute_uri(), 'error_name': 400}
+    return render(request, 'lists/error_page.html', context)

@@ -1,0 +1,11 @@
+{% extends 'partials/base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <h1>404 error!</h1>
+    <h3>Sorry, "<span class="fw-bold text-danger">{{ request.get_full_path }}</span>" page was not found.</h3>
+    <a href="{% url 'home' %}" class="btn btn-secondary btn-sm mt-3">Home</a>
+</div>
+{% endblock content %}
+    
