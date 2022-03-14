@@ -9,6 +9,6 @@ locate this file and write on your command line: "python -m pip install" (To ins
 
 Screenshots
 
-![](D:\onePython\todo_list\screenshots\1.png)
+![Alt text](screenshots/1.png?raw=true "Optional Title")
 
 Contact Telegram: @Llanz_000
