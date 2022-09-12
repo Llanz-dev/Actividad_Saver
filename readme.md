@@ -35,7 +35,7 @@ Install the SnakeReader with the following:
 ![none](screenshots/8.png?raw=true)
 #### You could choose a specific purpose. For example, I choose the fitness area.
 ![none](screenshots/10.png?raw=true)
-#### Then all the fitness purposes appear. It also shows how many fitness are there. In this example, it's 3.
+#### Then all the fitness purposes appear. It also shows how many fitness lists are there. In this example, it's 3.
 ![none](screenshots/11.png?raw=true)
 
 ## Badges
