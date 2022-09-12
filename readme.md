@@ -41,7 +41,7 @@ Install the SnakeReader with the following:
 ## Badges
 ![open source](https://img.shields.io/badge/Open%20Source-%F0%9F%92%9A-white)
 ![GitHub contributors](https://img.shields.io/github/contributors/Llanz-dev/Actividad_Saver)
-![downloads](https://img.shields.io/github/downloads/Llanz-dev/Actividad_Saver/total)
+![down](https://img.shields.io/github/downloads/Llanz-dev/Actividad_Saver/total)
 ![Django](https://img.shields.io/badge/django-4.1.1-brightgreen)
 ![forks](https://img.shields.io/github/last-commit/Llanz-dev/Actividad_Saver)
 ![followers](https://img.shields.io/github/followers/Llanz-dev?style=social)
