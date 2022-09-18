@@ -3,9 +3,17 @@
 ## Description
 Actividad_Saver is a to-do application for you to list all your activity.
 
-- It can list down all your activity all day in which district of Iloilo, Philippines you will do that. To make it more convenient, there's also a search functionality to help you find that list or activity.
-- The Django framework I used for my back-end because it's easy to maintain the whole project and you can build a big project in a fast way. The database is easy to manage and batteries included, for example, Free API, Easy Database Migrations, Default Admin section, and more. I also use bootstrap to make it fast to build.
-- As I make this project, everything is good and simple. I want to add a profile so it can use by everybody on their terms.
+- I inspired to make this project because I note all my work for a day in the microsoft note mobile application, so I decided to make my own to-do application.
+- I build this project to enhance my capability in Django and to explore it in my own.
+- This project can list all your activities and navigate them.
+- I learned how to manipulate the database and how to render them.
+
+## Built With
+- HTML
+- CSS
+- Bootstrap CSS & Icons (5.1)
+- Vanilla JavaScript
+- Django (4.0.6)
 
 ## How to Install and Run the Project
 
