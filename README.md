@@ -11,7 +11,7 @@ Actividad_Saver is a to-do application for you to list all your activity.
 ## Built With
 - HTML
 - CSS
-- Bootstrap CSS (5.1)
+- Bootstrap (5.1)
 - Vanilla JavaScript
 - Django (4.0.6)
 
